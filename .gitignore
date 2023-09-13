@@ -1,4 +1,4 @@
 ./.git/objects/pack/pack-fc27b1d307d8fe3d9fa5abc3c748b3ca58e9dc6e.pack
 ./.git/objects/99/858676629949dd9361225868bfd7b7550683b3
-data/gebco/gebco_08.nc
-data/gshhs/gshhs_f.b
+./data/gebco/gebco_08.nc
+./data/gshhs/gshhs_f.b
