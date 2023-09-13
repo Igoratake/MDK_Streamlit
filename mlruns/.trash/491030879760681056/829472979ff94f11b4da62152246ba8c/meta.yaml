@@ -1,0 +1,16 @@
+artifact_uri: file:///scratch/work/testing/mlruns/491030879760681056/829472979ff94f11b4da62152246ba8c/artifacts
+deleted_time: 1694426669806
+end_time: 1694422921512
+entry_point_name: ''
+experiment_id: '491030879760681056'
+lifecycle_stage: deleted
+run_id: 829472979ff94f11b4da62152246ba8c
+run_name: resilient-stag-380
+run_uuid: 829472979ff94f11b4da62152246ba8c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1694422921481
+status: 3
+tags: []
+user_id: mdk

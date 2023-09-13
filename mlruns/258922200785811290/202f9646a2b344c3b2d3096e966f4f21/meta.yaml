@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/258922200785811290/202f9646a2b344c3b2d3096e966f4f21/artifacts
+end_time: 1694426698247
+entry_point_name: ''
+experiment_id: '258922200785811290'
+lifecycle_stage: active
+run_id: 202f9646a2b344c3b2d3096e966f4f21
+run_name: exultant-carp-138
+run_uuid: 202f9646a2b344c3b2d3096e966f4f21
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1694426698199
+status: 3
+tags: []
+user_id: mdk

@@ -1,0 +1,16 @@
+artifact_uri: file:///scratch/work/testing/mlruns/874124290833786841/57bbf28c3c004ce699a067e06c873f28/artifacts
+deleted_time: 1694426662520
+end_time: 1694426535916
+entry_point_name: ''
+experiment_id: '874124290833786841'
+lifecycle_stage: deleted
+run_id: 57bbf28c3c004ce699a067e06c873f28
+run_name: nosy-loon-150
+run_uuid: 57bbf28c3c004ce699a067e06c873f28
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1694426535892
+status: 3
+tags: []
+user_id: mdk

@@ -1,0 +1,16 @@
+artifact_uri: file:///scratch/work/testing/mlruns/874124290833786841/d3070e55a80943aa9606949cc35c3c1b/artifacts
+deleted_time: 1694426662520
+end_time: 1694426552859
+entry_point_name: ''
+experiment_id: '874124290833786841'
+lifecycle_stage: deleted
+run_id: d3070e55a80943aa9606949cc35c3c1b
+run_name: gentle-lamb-7
+run_uuid: d3070e55a80943aa9606949cc35c3c1b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1694426552811
+status: 3
+tags: []
+user_id: mdk

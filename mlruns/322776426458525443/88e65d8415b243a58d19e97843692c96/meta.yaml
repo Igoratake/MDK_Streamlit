@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/322776426458525443/88e65d8415b243a58d19e97843692c96/artifacts
+end_time: 1694426696299
+entry_point_name: ''
+experiment_id: '322776426458525443'
+lifecycle_stage: active
+run_id: 88e65d8415b243a58d19e97843692c96
+run_name: able-smelt-507
+run_uuid: 88e65d8415b243a58d19e97843692c96
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1694426696256
+status: 3
+tags: []
+user_id: mdk

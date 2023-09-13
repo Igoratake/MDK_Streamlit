@@ -1,0 +1,16 @@
+artifact_uri: file:///scratch/work/testing/mlruns/491030879760681056/e449297f803a4ba2821c95cb3c332650/artifacts
+deleted_time: 1694426669806
+end_time: 1694422928134
+entry_point_name: ''
+experiment_id: '491030879760681056'
+lifecycle_stage: deleted
+run_id: e449297f803a4ba2821c95cb3c332650
+run_name: upset-elk-328
+run_uuid: e449297f803a4ba2821c95cb3c332650
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1694422928099
+status: 3
+tags: []
+user_id: mdk
