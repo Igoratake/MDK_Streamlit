@@ -1,8 +1,12 @@
+#!/usr/bin/python
+# pre_processor MEDSLIK - II
+
 # Developed for coastline extraction from gshhs full resolution.
 # It will extract coastline files for whichever part of the globe you
 # wish and make it compatible with MEDSLIK-II.
 
 import numpy as np
+import argparse
 from netCDF4 import Dataset
 import os
 
@@ -356,11 +360,10 @@ def extract_coastline(x_mod,y_mod,input_file,output_file):
 			print ('Data extraction process has finished. Slicing...')
 			break
 
-	#Getting rid of unused rows
-
+	# #Getting rid of unused rows
 	ncst=np.delete(ncst, (np.arange(k[l+1].astype(int), ncst.size/2)), axis=0) # get rid of unused part of data matrices
-	Area=np.delete(Area, (np.arange((l+1), Area.size+1)), axis=0)
-	k=np.delete( k , ( np.arange ( (l+2) , k.size+1)), axis=0)
+	Area=np.delete(Area, (np.arange((l+1).astype(int), Area.size+1)), axis=0)
+	k=np.delete( k , ( np.arange ( (l+2).astype(int) , k.size+1)), axis=0)
 
 	print ('...Done. Printing it on a txt file...')
 
@@ -403,18 +406,22 @@ def extract_coastline(x_mod,y_mod,input_file,output_file):
 ################################################################################
 # USER INPUTS
 ################################################################################
-xp_name = input('Name your experiment (e.g. "paria_case"): ')
+
+parser = argparse.ArgumentParser(description='Generate bathymetry fields at ocean current fields grid')
+parser.add_argument('gshhs',help='full path to your GSHHS coastline binary file')
+parser.add_argument('input',help='full path to a MDK_ocean_YYMMDD_X.nc file from where interpolation grid will be taken from')
+parser.add_argument('output_dir', help='Output directory where files will be saved')
+args = parser.parse_args()
 
 # set path for your original gebco netCDF file
-gshhs_filename = '/scratch/work/lab/data/gshhs/gshhs_f.b'
+gshhs_filename = args.gshhs 
 
 # define where outputs will be placed (MEDSLIK-adapted nc files)
-output_dir= ('/scratch/work/lab/' + xp_name + '/bnc_files/')
-os.system('mkdir /scratch/work/lab/' + xp_name)
-os.system('mkdir /scratch/work/lab/' + xp_name + '/bnc_files')
+output_dir= args.output_dir 
 
-# the coastline shapefiles will be for the area covered by the hydrodynamic grid
-oce_dir =('/scratch/work/lab/' + xp_name + '/oce_files/')
+# the bathymetry fields will be interpolated to your hydrodynamic grid
+# therefore, let us know where you've placed your current files
+oce_filename = args.input 
 
 ################################################################################
 # USER INPUTS - OVER!
@@ -424,9 +431,8 @@ oce_dir =('/scratch/work/lab/' + xp_name + '/oce_files/')
 # feel free to send us comments/corrections.
 
 # open an ocean forecast file
-oce_filename = (oce_dir + "/" + os.listdir(oce_dir)[0])
 x_mod, y_mod = oce_grid(oce_filename)
 
 # extract coastline
-output_file = output_dir + "/dtm.map"
+output_file = output_dir + "/medf.map"
 extract_coastline(x_mod,y_mod,gshhs_filename,output_file)
