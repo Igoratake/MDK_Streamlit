@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/6ac93e21a5a84549bda674c9eac0c167/artifacts
+end_time: 1695649879666
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: 6ac93e21a5a84549bda674c9eac0c167
+run_name: likeable-asp-321
+run_uuid: 6ac93e21a5a84549bda674c9eac0c167
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695649204840
+status: 3
+tags: []
+user_id: mdk

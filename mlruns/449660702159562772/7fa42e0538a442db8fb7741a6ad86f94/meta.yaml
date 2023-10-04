@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/7fa42e0538a442db8fb7741a6ad86f94/artifacts
+end_time: 1695651013505
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: 7fa42e0538a442db8fb7741a6ad86f94
+run_name: flawless-donkey-912
+run_uuid: 7fa42e0538a442db8fb7741a6ad86f94
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695651008528
+status: 3
+tags: []
+user_id: mdk

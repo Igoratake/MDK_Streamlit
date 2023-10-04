@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/ed1f40940a1e4e25abcd91a3e2afa791/artifacts
+end_time: 1695651920299
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: ed1f40940a1e4e25abcd91a3e2afa791
+run_name: dashing-goose-255
+run_uuid: ed1f40940a1e4e25abcd91a3e2afa791
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695651919856
+status: 3
+tags: []
+user_id: mdk

@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/a1dc4c9779fb412e9932dce3300d845f/artifacts
+end_time: 1695636717647
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: a1dc4c9779fb412e9932dce3300d845f
+run_name: smiling-ram-77
+run_uuid: a1dc4c9779fb412e9932dce3300d845f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695636712463
+status: 3
+tags: []
+user_id: mdk

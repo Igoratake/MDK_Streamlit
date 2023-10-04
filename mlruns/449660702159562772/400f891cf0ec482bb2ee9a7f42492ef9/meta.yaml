@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/400f891cf0ec482bb2ee9a7f42492ef9/artifacts
+end_time: 1695719138545
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: 400f891cf0ec482bb2ee9a7f42492ef9
+run_name: peaceful-cow-332
+run_uuid: 400f891cf0ec482bb2ee9a7f42492ef9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695719131933
+status: 3
+tags: []
+user_id: mdk

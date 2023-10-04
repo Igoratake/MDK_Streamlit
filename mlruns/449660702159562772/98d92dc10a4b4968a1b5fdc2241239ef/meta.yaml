@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/98d92dc10a4b4968a1b5fdc2241239ef/artifacts
+end_time: 1695633276651
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: 98d92dc10a4b4968a1b5fdc2241239ef
+run_name: clean-flea-298
+run_uuid: 98d92dc10a4b4968a1b5fdc2241239ef
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695633171416
+status: 3
+tags: []
+user_id: mdk

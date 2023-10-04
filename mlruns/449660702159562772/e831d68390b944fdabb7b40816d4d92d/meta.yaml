@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/e831d68390b944fdabb7b40816d4d92d/artifacts
+end_time: 1695651107325
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: e831d68390b944fdabb7b40816d4d92d
+run_name: adaptable-foal-904
+run_uuid: e831d68390b944fdabb7b40816d4d92d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695651100869
+status: 3
+tags: []
+user_id: mdk

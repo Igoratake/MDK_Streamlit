@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/e9812bdc7a814d36ad4180493cc125ee/artifacts
+end_time: 1695119389539
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: e9812bdc7a814d36ad4180493cc125ee
+run_name: youthful-sponge-420
+run_uuid: e9812bdc7a814d36ad4180493cc125ee
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695119374604
+status: 3
+tags: []
+user_id: mdk

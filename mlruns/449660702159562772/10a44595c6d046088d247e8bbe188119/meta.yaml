@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/10a44595c6d046088d247e8bbe188119/artifacts
+end_time: 1695725959111
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: 10a44595c6d046088d247e8bbe188119
+run_name: unruly-crab-444
+run_uuid: 10a44595c6d046088d247e8bbe188119
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695725954821
+status: 3
+tags: []
+user_id: mdk
