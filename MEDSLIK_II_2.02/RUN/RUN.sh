@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set where you have placed MEDSLIK_II folder
-HOME_MEDSLIK=/scratch/work/MEDSLIK_II_2.02
+HOME_MEDSLIK=/scratch/work/MDK_Streamlit/MEDSLIK_II_2.02
 
 MEDSLIK=${HOME_MEDSLIK}/RUN
 
@@ -10,7 +10,7 @@ start_time=$(date +%s.%N)
 echo "`date +'%Y-%m-%d %H:%M:%S'` `date +%s` `hostname` start EXE" > ${MEDSLIK}/timelog.log
 
 # launches model
-source medslik_II.sh
+. ${MEDSLIK}/medslik_II.sh
 
 # update timelog file
 end_date=$(date +%s.%N)

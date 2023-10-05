@@ -1,5 +1,5 @@
 cc-----------------------------------------------------------------------------------
-c  MEDSLIK-II_3.01
+c  MEDSLIK-II_2.02
 c  oil spill fate and transport model 
 c-----------------------------------------------------------------------------------
 c  medslik_II.for
@@ -91,7 +91,7 @@ c----------------------------------------------------------------------
       
       subroutine main(delt, npl)
       implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237,
+      parameter(mm=25,nm=25,
      &          ntm=2000,npc=100000,nss=350000,msp=1200)
 c     &          ntm=2000,npc=100000,nss=350000,npl=4000,msp=1200)
 
@@ -2851,7 +2851,7 @@ c     selects those coastal segments that are close enough to spill
 c----------------------------------------------------------------------
       subroutine coast(dt,seg,sfrac,prel,nseg,alngt,api,apicoeff)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237,
+      parameter(mm=25,nm=25,
      &          ntm=2000,npc=100000,nss=350000,msp=1200)
 c	
       save ind,iused,ibd,bd1,nsegt,dkm
@@ -3234,7 +3234,7 @@ c     compute horizontal diffusity from Smagorinsky model
 c----------------------------------------------------------------------
       subroutine smag(x0,y0,us,vs,horizk)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237)
+      parameter(mm=25,nm=25)
       dimension itype(mm,nm),us(mm,nm),vs(mm,nm)
       common /blk3/ mmax,nmax,delx,dely,itype,pi,degrad
 
@@ -3294,7 +3294,7 @@ c     read forecast SST data and interpolate to Medslik grid
 c----------------------------------------------------------------------
       subroutine readsstfcst(fcstcurdir,fn,sst)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237)
+      parameter(mm=25,nm=25)
 c
       dimension sst(mm,nm)
 	character fcstcurdir*14,fn*16,dummy*80
@@ -3344,7 +3344,7 @@ c----------------------------------------------------------------------
       subroutine ski_ecmwf_wind(xavg,yavg,nst,time,delt,nwfcst,
      &                  wfcstfn,iwfcstfn,wfcsttim,winx,winy,wvel,wdir)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237,
+      parameter(mm=25,nm=25,
      &          ntm=2000,npc=100000,nss=350000,npl=2000,msp=1200)
       save isub,readdata,ifile,iwindrec,dwinx,dwiny
 c
@@ -3525,7 +3525,7 @@ c     optional interpolation also over land points
 c----------------------------------------------------------------------
       subroutine readwind(dirr,fn,iwindrec,nrecs,wfx,wfy)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237)
+      parameter(mm=25,nm=25)
 c
       dimension wfx(mm,nm),wfy(mm,nm),wfx2(mm,nm),wfy2(mm,nm),
      &          itype(mm,nm),wx1(24),wy1(24)
@@ -3626,7 +3626,7 @@ c----------------------------------------------------------------------
       subroutine fcstcur_1hr(nst,time,delt,nfcst,fcstfn,ifcstfn,fcsttim,
      &                   fcstcurdir)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237,
+      parameter(mm=25,nm=25,
      &          ntm=2000,npc=100000,nss=350000,msp=1200)
       save ifile,isub
 c
@@ -3837,7 +3837,7 @@ c----------------------------------------------------------------------
       subroutine readfcst_1hr(fcstcurdir,fn,sst,us,vs,u10,v10,
      &                     u30,v30,u120,v120)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237)
+      parameter(mm=25,nm=25)
 c
       dimension sst(mm,nm),
      &          us(mm,nm),vs(mm,nm),u10(mm,nm),v10(mm,nm),
@@ -3916,7 +3916,7 @@ c     interpolate an array to the medslik grid - dble precision
 c----------------------------------------------------------------------
 	subroutine interpol(array,alon1,alat1,dlon,dlat)
 	implicit real*8 (a-h,o-z)
-      parameter(mm=237,nm=237)
+      parameter(mm=25,nm=25)
 c	
 	dimension array(mm,nm),array2(mm,nm)
       dimension itype(mm,nm)
@@ -4022,7 +4022,7 @@ c     from grid values to a point (x,y)
 c----------------------------------------------------------------------
       subroutine intrpl0(x,y,q,qint)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237)
+      parameter(mm=25,nm=25)
 c
       dimension q(mm,nm),itype(mm,nm)
       m=int(x)
@@ -4042,7 +4042,7 @@ c     values to a point (x,y) taking account of land/water mask
 c----------------------------------------------------------------------
       subroutine intrpl(x,y,q,itype,qint)
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237,
+      parameter(mm=25,nm=25,
      &          ntm=2000,npc=100000,nss=350000,msp=1200)
 c     &          ntm=2000,npc=100000,nss=350000,npl=2000,msp=1200)
 c
@@ -4204,7 +4204,7 @@ c     smooth the bathymetry - slmin = max bottom slope
 c----------------------------------------------------------------------
       subroutine hsmoot(h) 
 	implicit real*8(a-h,o-z)
-      parameter(mm=237,nm=237,
+      parameter(mm=25,nm=25,
      &          ntm=2000,npc=100000,nss=350000,msp=1200)
 c     &          ntm=2000,npc=100000,nss=350000,npl=2000,msp=1200)
       dimension itype(mm,nm),h(mm,nm) 
