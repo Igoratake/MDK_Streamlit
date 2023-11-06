@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/7a009f571c2541a0b525b9e3e16b425e/artifacts
+end_time: 1695638028882
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: 7a009f571c2541a0b525b9e3e16b425e
+run_name: unequaled-gull-939
+run_uuid: 7a009f571c2541a0b525b9e3e16b425e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695638022761
+status: 3
+tags: []
+user_id: mdk

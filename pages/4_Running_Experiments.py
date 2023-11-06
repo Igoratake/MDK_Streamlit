@@ -20,6 +20,7 @@ import plotly.figure_factory as ff
 import os
 import sys
 import time
+import json
 import datetime
 import subprocess
 import threading
@@ -32,22 +33,51 @@ simname = st.text_input("Insert Simulation name", prev_simname)
 
 #Experiments directory
 simdir = 'cases/'
-rawdata = 'data/'  
+rawdata = 'data/'
+
+try:
+    mlflow.end_run()
+except:
+    pass
 
 if simname:
 
-    os.system(f'mkdir {simdir}{simname}')
+    if os.path.isdir(f'{simdir}{simname}') == False:
+        st.text('No setup available for this experiment name\nTry another one')
 
-    mlflow.set_experiment(f'{simname}')
-    mlflow.start_run()
+    else: 
 
-    tags = {"teste1":"deu certo"}
-    
-    mlflow.set_tags(tags)
-    
-    mlflow.end_run()
+        if st.button(f"Start Simulation for {simname}"):               
 
-    st.text('Passou')                            
+            subprocess.run(f'mkdir {simdir}{simname}',shell=True)
+            print('\n\n\n ===== MED Streamlit Run ===== \n\n\n')
 
+            st.text('Creating or using MLFlow Experimet')
+            mlflow.set_experiment(f'{simname}')
+            mlflow.start_run()
 
+            st.text('Linking directories')
+            # copy METOCEAN files to MEDSLIK-II installation
+            subprocess.run([f'cp {simdir}{simname}/oce_files/* MEDSLIK_II_2.02/METOCE_INP/PREPROC/OCE/'],shell=True)
+            subprocess.run([f'cp {simdir}{simname}/oce_files/* MEDSLIK_II_2.02/RUN/TEMP/OCE/'],shell=True)
 
+            subprocess.run([f'cp {simdir}{simname}/met_files/* MEDSLIK_II_2.02/METOCE_INP/PREPROC/MET/'],shell=True)
+            subprocess.run([f'cp {simdir}{simname}/met_files/* MEDSLIK_II_2.02/RUN/TEMP/MET/'],shell=True)
+            # copy bnc files
+            subprocess.run([f'cp {simdir}{simname}/bnc_files/* MEDSLIK_II_2.02/DTM_INP/'],shell=True)
+            # copy Extract and config files
+            subprocess.run([f'cp {simdir}{simname}/xp_files/Extract_II.for MEDSLIK_II_2.02/RUN/MODEL_SRC/'],shell=True)
+            subprocess.run([f'cp {simdir}{simname}/xp_files/medslik_II.for MEDSLIK_II_2.02/RUN/MODEL_SRC/'],shell=True)
+            subprocess.run([f'cp {simdir}{simname}/xp_files/config1.txt MEDSLIK_II_2.02/RUN/'],shell=True)
+
+            st.text('Compiling Medslik')
+            # Compile and start running
+            subprocess.run([f'cd MEDSLIK_II_2.02/RUN/; sh MODEL_SRC/compile.sh; ./RUN.sh'],shell=True,check=True)
+
+            f = open(f'cases/{simname}/xp_files/tags.json',)
+            tagss = json.load(f)
+            
+            mlflow.set_tags(tagss)
+            
+            mlflow.end_run()
+                            

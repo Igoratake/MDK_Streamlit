@@ -353,7 +353,7 @@ def extract_coastline(x_mod,y_mod,input_file,output_file):
 		try:
 			A,cnt=getheader(fid)
 		except:
-			print 'Data extraction process has finished. Slicing...'
+			print ('Data extraction process has finished. Slicing...')
 			break
 
 	#Getting rid of unused rows
@@ -362,7 +362,7 @@ def extract_coastline(x_mod,y_mod,input_file,output_file):
 	Area=np.delete(Area, (np.arange((l+1), Area.size+1)), axis=0)
 	k=np.delete( k , ( np.arange ( (l+2) , k.size+1)), axis=0)
 
-	print '...Done. Printing it on a txt file...'
+	print ('...Done. Printing it on a txt file...')
 
 	iSegmentLength=np.diff(k,n=1,axis=0)
 
@@ -373,7 +373,7 @@ def extract_coastline(x_mod,y_mod,input_file,output_file):
 	CoastFile=open(output_file,'w')
 	CoastFile.write("%-4.0f \n" % (IX.size))
 	iTargetSites=[]
-        iTargetSite=np.array([0.,0.,0.,0.])
+	iTargetSite=np.array([0.,0.,0.,0.])
 
 	# prints coastline data island by island
 
@@ -390,11 +390,11 @@ def extract_coastline(x_mod,y_mod,input_file,output_file):
 			CoastFile.write("%-8.5f %-6.5f \n" % (iCoastalSection[r,0], iCoastalSection[r,1]))
 
 		for i in range(0,len(iCoastalSection)-1):
-                        iTargetSite[0]=iCoastalSection[i,0]
-                        iTargetSite[1]=iCoastalSection[i,1]
-                        iTargetSite[2]=iCoastalSection[i+1,0]
-                        iTargetSite[3]=iCoastalSection[i+1,1]
-                        iTargetSites.append(list(iTargetSite))
+						iTargetSite[0]=iCoastalSection[i,0]
+						iTargetSite[1]=iCoastalSection[i,1]
+						iTargetSite[2]=iCoastalSection[i+1,0]
+						iTargetSite[3]=iCoastalSection[i+1,1]
+						iTargetSites.append(list(iTargetSite))
 
 	CoastFile.close()
 	np.savetxt(output_file[:-3] + 'txt', np.array(iTargetSites))

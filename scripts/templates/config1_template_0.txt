@@ -19,7 +19,7 @@ lon_minutes=LONm
 
 # insert oil slick data: spill rate, spill duration and age
 
-duration=0000             # spill duration, in hours, 4 characters, if the spill is instantaneous type 0000
+duration=SDUR            # spill duration, in hours, 4 characters, if the spill is instantaneous type 0000
 spillrate=SRATE        # spill rate in tons/hours,  if the spill is instantaneous write the total tons spilled
 age=0
 grid_size=150.0         # spatial resolution (m) of the oil tracer grid

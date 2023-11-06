@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #-----------------------------------------------------------------------------------
 #  MEDSLIK-II_2.02
 #  oil spill fate and transport model
@@ -35,28 +35,31 @@
 # str re-structured
 #-----------------------------------------------------------------------------------
 
-rm *.rso
-rm medslik5.inp
-rm medslik.tmp
-rm ../OUT/*.fte
+HOME_MEDSLIK=/scratch/work/MDK_Streamlit/MEDSLIK_II_2.02/
+F_DATA=/scratch/work/MDK_Streamlit/MEDSLIK_II_2.02/METOCE_INP/ #str
+MEDSLIK=${HOME_MEDSLIK}/RUN
 
-rm flag*.tmp
-rm tmp*.tmp
+rm ${MEDSLIK}/*.rso
+rm ${MEDSLIK}/*medslik5.inp
+rm ${MEDSLIK}/*medslik.tmp
+rm ${HOME_MEDSLIK}/OUT/*.fte
 
-rm oil_file.txt
-rm initial*.txt
+rm ${MEDSLIK}/flag*.tmp
+rm ${MEDSLIK}/tmp*.tmp
 
-HOME_MEDSLIK=/scratch/work/MEDSLIK_II_2.02
-F_DATA=/scratch/work/MEDSLIK_II_2.02/METOCE_INP #str
+rm ${MEDSLIK}/oil_file.txt
+rm ${MEDSLIK}/initial*.txt
 
-source config1.txt
 
-python read_oil_data.py $OIL "$OIL_TYPE"
+
+. ${MEDSLIK}/config1.txt
+
+python ${MEDSLIK}/read_oil_data.py $OIL "$OIL_TYPE"
 
 ###############################################################################
 #0.                               OPTIONS
 ###############################################################################
-if [ "$ContourSlick" == "YES" ] || [ "$SAT_DATA" == "YES" ]; then
+if [ "$ContourSlick" = "YES" ] || [ "$SAT_DATA" = "YES" ]; then
 isat=1; else
 isat=0
 fi
@@ -91,9 +94,9 @@ iage=$age
 ###############################################################################
 #2.                  READ CONTOUR from the input file
 ###############################################################################
-if [ "$ContourSlick" == "YES" ]
+if [ "$ContourSlick" = "YES" ]
 then
-echo '20'$year'/'$month'/'$day' '$hour':'$minutes >> initial.txt
+echo '20'$year'/'$month'/'$day' '$hour':'$minutes >> ${MEDSLIK}/initial.txt
 p=0
 N=1
 while [ $N -le $NSlick ]
@@ -114,30 +117,30 @@ while [ $N -le $NSlick ]
   apply_name_lat="Slat[$index]=$var_name_lat"
   eval $apply_name_lat
 
-  echo ${Slat[$index]} ${Slon[$index]} >> initial0.txt
+  echo ${Slat[$index]} ${Slon[$index]} >> ${MEDSLIK}/initial0.txt
   index=`expr  $index + 1`
   p=`expr $p + 1`
 
   done
   N=`expr $N + 1`
   p=`expr $p + 1`
-  echo ${Slat[1]} ${Slon[1]} >> initial0.txt
+  echo ${Slat[1]} ${Slon[1]} >> ${MEDSLIK}/initial0.txt
 done
-  echo $p'        Number of data points' >> initial.txt
-  echo '  lat     lon' >> initial.txt
-  cat initial0.txt>>initial.txt
+  echo $p'        Number of data points' >> ${MEDSLIK}/initial.txt
+  echo '  lat     lon' >> ${MEDSLIK}/initial.txt
+  cat ${MEDSLIK}/initial0.txt>>${MEDSLIK}/initial.txt
 fi
-rm initial0.txt
+rm ${MEDSLIK}/initial0.txt
 ################################################################################
 #3.                   READ INPUT DATA FROM SATELLITE DATA
 ################################################################################
-if [ "$SAT_DATA" == "YES" ]
+if [ "$SAT_DATA" = "YES" ]
 then
 
-python MODEL_SRC/ReadSatData_EMSA.py $namefileGML $N_OS
+python ${MEDSLIK}/MODEL_SRC/ReadSatData_EMSA.py $namefileGML $N_OS
 
 
-myFile="medslik_sat.inp"
+myFile="${MEDSLIK}/medslik_sat.inp"
 count=0
 for var in `cat $myFile` ; do
 count=`expr $count + 1`
@@ -185,6 +188,7 @@ multiple=01 #number of sumperimposed spills
 
 # NUMBER OF FILES NEEDED
 declare -i extra_count=0
+extra_count=(list)
 if [ $minutes -gt 0 ]
 then
 hour_=$((10#$hour + 1))
@@ -233,7 +237,7 @@ FCStart1=20$year$month$day
 FcStart1=$FCStart1
 FcStart1=`echo $FcStart1 |cut -c1-8`
 
-cp MODEL_SRC/medslikYYYY.inp medslik0.inp
+cp ${MEDSLIK}/MODEL_SRC/medslikYYYY.inp ${MEDSLIK}/medslik0.inp
 sed -e "s/giorno/$day/"\
     -e "s/mese/$month/"\
     -e "s/anno/$year/"\
@@ -254,14 +258,14 @@ sed -e "s/giorno/$day/"\
     -e "s/riinizio/$restart/"\
     -e "s/griglia/$grid_size/"\
     -e "s/numero_files/$numfiles/"\
-    medslik0.inp>medslik1.inp
-rm medslik0.inp
+    ${MEDSLIK}/medslik0.inp> ${MEDSLIK}/medslik1.inp
+rm ${MEDSLIK}/medslik0.inp
 
-sed -n '1,15 p' medslik1.inp >medslik5.inp
-cat oil_file.txt>>medslik5.inp
-sed -n '24,28 p' medslik1.inp >medslik0.inp
-cat medslik0.inp>>medslik5.inp
-rm medslik[01].inp
+sed -n '1,15 p' ${MEDSLIK}/medslik1.inp >${MEDSLIK}/medslik5.inp
+cat ${MEDSLIK}/oil_file.txt >> ${MEDSLIK}/medslik5.inp
+sed -n '24,28 p' ${MEDSLIK}/medslik1.inp >${MEDSLIK}/medslik0.inp
+cat ${MEDSLIK}/medslik0.inp >> ${MEDSLIK}/medslik5.inp
+rm ${MEDSLIK}/medslik[01].inp
 
 #####################################################################
 #5. PRE-PROCESSING OF CURRENTS & WIND FILES NEEDED FOR SIMULATION
@@ -279,7 +283,7 @@ tail_name=''
 PREPROC=PREPROC
 FD=$F_DATA/PREPROC/$dir
 
-rm tmp*.tmp
+rm ${MEDSLIK}/tmp*.tmp
 
 n=0
 loop=$numfiles
@@ -287,7 +291,7 @@ loop=$numfiles
 while [ $n != $loop ]; do
 n=`expr $n + 1`
 nn=`expr $n - 1`
-Datafc=`./jday $FcStart1 +$nn`
+Datafc=`${MEDSLIK}/jday $FcStart1 +$nn`
 DataFC=`echo $Datafc |cut -c3-8`
 DataFc=$DataFC
 echo 'CHECK CURRENTS' $DataFc
@@ -297,25 +301,25 @@ DataFc_out=${DataFc}
 if [ -f $FD/$pre_name${DataFc}$tail_name'_U.nc' ]
 then
    ln -s $FD/$pre_name${DataFc}$tail_name'_U.nc' $FD/${DataFc}'_U.nc'
-   echo "${DataFc}_U.nc 1" >> tmp1.tmp
+   echo "${DataFc}_U.nc 1" >> ${MEDSLIK}/tmp1.tmp
 else
-   echo "${DataFc}_U.nc 0" >> tmp1.tmp
+   echo "${DataFc}_U.nc 0" >> ${MEDSLIK}/tmp1.tmp
    echo "For this run you need the file" $pre_name${DataFc}$tail_name'_U.nc'
 fi
 
 if [ -f $FD/$pre_name${DataFc}$tail_name'_V.nc' ]
 then
    ln -s $FD/$pre_name${DataFc}$tail_name'_V.nc' $FD/${DataFc}'_V.nc'
-   echo "${DataFc}_V.nc 1" >> tmp1.tmp
+   echo "${DataFc}_V.nc 1" >> ${MEDSLIK}/tmp1.tmp
 else
-   echo "${DataFc}_V.nc 0" >> tmp1.tmp
+   echo "${DataFc}_V.nc 0" >> ${MEDSLIK}/tmp1.tmp
    echo "For this run you need the file" $pre_name${DataFc}$tail_name'_V.nc'
 fi
 
 if [ -f $FD/$pre_name${DataFc}$tail_name'_T.nc' ]
 then
    ln -s $FD/$pre_name${DataFc}$tail_name'_T.nc' $FD/${DataFc}'_T.nc'
-   echo "${DataFc}_T.nc 1" >> tmp1.tmp
+   echo "${DataFc}_T.nc 1" >> ${MEDSLIK}/tmp1.tmp
 else
    echo "${DataFc}_T.nc 0" >> tmp1.tmp
    echo "For this run you need the file" $pre_name${DataFc}$tail_name'_T.nc'
@@ -336,103 +340,102 @@ File_wind="erai"${DataFc}".eri"
 echo 'CHECK WINDS' $Data_wind
 if [ -f $FD_wind_in/${Data_wind}.nc ]
 then
-   echo "${File_wind} 1" >> tmp2.tmp
+   echo "${File_wind} 1" >> ${MEDSLIK}/tmp2.tmp
    echo $FD_wind_in/${Data_wind}.nc ": File exists"
 else
-   echo "${File_wind} 0" >> tmp2.tmp
+   echo "${File_wind} 0" >> ${MEDSLIK}/tmp2.tmp
    echo "For this run you need the file" ${Data_wind}.nc
 fi
 
 done
 
+cat ${MEDSLIK}/tmp1.tmp >> ${MEDSLIK}/medslik5.inp
+echo $numfiles >> ${MEDSLIK}/medslik5.inp
 
-cat tmp1.tmp>>medslik5.inp
-echo $numfiles >> medslik5.inp
-
-cat tmp2.tmp>>medslik5.inp
-cat medslik_multi.tmp>>medslik5.inp
+cat ${MEDSLIK}/tmp2.tmp >> ${MEDSLIK}/medslik5.inp
+cat ${MEDSLIK}/medslik_multi.tmp >> ${MEDSLIK}/medslik5.inp
 
 #############################################################
 #6. AREA SELECTION (MIN/MAX Longitudes & Latitudes)
 #############################################################
-cp MODEL_SRC/medslikYYYY.tmp medslik1.tmp
+cp ${MEDSLIK}/MODEL_SRC/medslikYYYY.tmp ${MEDSLIK}/medslik1.tmp
 
-./lat_lon.exe
-mv medslik1.tmp medslik.tmp
+${MEDSLIK}/lat_lon.exe
+mv ${MEDSLIK}/medslik1.tmp ${MEDSLIK}/medslik.tmp
 
 
-echo $numfiles >> medslik.tmp
+echo $numfiles >> ${MEDSLIK}/medslik.tmp
 numfiles_tmp=$numfiles
 # done
 n=0
 while [ $n != $numfiles_tmp ]; do
 n=`expr $n + 1`
 nn=`expr $n - 1`
-Datafc=`./jday $FcStart1 +$nn`
+Datafc=`${MEDSLIK}/jday $FcStart1 +$nn`
 DataFC=`echo $Datafc |cut -c3-8`
 DataFc=$DataFC
-echo ${DataFc}24 >> medslik.tmp
+echo ${DataFc}24 >> ${MEDSLIK}/medslik.tmp
 done
 
-echo $numfiles_tmp >> medslik.tmp
+echo $numfiles_tmp >> ${MEDSLIK}/medslik.tmp
 
 
 n=0
 while [ $n != $numfiles_tmp ]; do
 n=`expr $n + 1`
 nn=`expr $n - 1`
-Datafc=`./jday $FcStart1 +$nn`
+Datafc=`${MEDSLIK}/jday $FcStart1 +$nn`
 DataFC=`echo $Datafc |cut -c3-8`
 DataFc=$DataFC
-echo ${Datafc} >> medslik.tmp
+echo ${Datafc} >> ${MEDSLIK}/medslik.tmp
 done
 
-echo " 0" >> medslik.tmp
+echo " 0" >> ${MEDSLIK}/medslik.tmp
 
 
-tr -d "\015" < medslik5.inp > medslik52.inp
-cp medslik52.inp medslik5.inp
-rm medslik52.inp
+tr -d "\015" < ${MEDSLIK}/medslik5.inp > ${MEDSLIK}/medslik52.inp
+cp ${MEDSLIK}/medslik52.inp ${MEDSLIK}/medslik5.inp
+rm ${MEDSLIK}/medslik52.inp
 
-tr -d "\015" < medslik.tmp > medslik2.tmp
-cp medslik2.tmp medslik.tmp
-rm medslik2.tmp
+tr -d "\015" < ${MEDSLIK}/medslik.tmp > ${MEDSLIK}/medslik2.tmp
+cp ${MEDSLIK}/medslik2.tmp ${MEDSLIK}/medslik.tmp
+rm ${MEDSLIK}/medslik2.tmp
 
 #######################################################################
 # CREATE OUTPUT DIRECTORY
 #######################################################################
 DIR_output='MDK_SIM_20'$year'_'$month'_'$day'_'$hour$minutes'_'$SIM_NAME
-mkdir ../OUT/$DIR_output
+mkdir ${HOME_MEDSLIK}/OUT/$DIR_output
 #######################################################################
 #7. EXTRACT CURRENTS, WIND AND SST DATA
 #####################################################################
 echo 'READING CURRENTS & WIND DATA'
-./Extract_II.exe $F_DATA
+#./Extract_II.exe $F_DATA
 ######################################################################
 #8. RUN
 #####################################################################
 echo 'PLEASE WAIT: SIMULATION IS RUNNING'
-./medslik_II.exe
+${MEDSLIK}/medslik_II.exe
 #####################################################################
 #9. ARCHIVE OUTPUT FILES
 #####################################################################
-rm tmp*.tmp
+rm ${MEDSLIK}/tmp*.tmp
 
-cp medslik5.inp  ../OUT/$DIR_output
-cp config2.txt  ../OUT/$DIR_output
-cp medslik.tmp ../OUT/$DIR_output
-cp initial.txt ../OUT/$DIR_output
-cp config1.txt ../OUT/$DIR_output
-mv ../OUT/*.tot ../OUT/$DIR_output
-mv ../OUT/*.fte ../OUT/$DIR_output
-mv ../OUT/*.cst ../OUT/$DIR_output
-mv spill_properties.nc ../OUT/$DIR_output
+cp ${MEDSLIK}/medslik5.inp  ${HOME_MEDSLIK}/OUT/$DIR_output
+cp ${MEDSLIK}/config2.txt  ${HOME_MEDSLIK}/OUT/$DIR_output
+cp ${MEDSLIK}/medslik.tmp ${HOME_MEDSLIK}/OUT/$DIR_output
+cp ${MEDSLIK}/initial.txt ${HOME_MEDSLIK}/OUT/$DIR_output
+cp ${MEDSLIK}/config1.txt ${HOME_MEDSLIK}/OUT/$DIR_output
+mv ${HOME_MEDSLIK}/OUT/*.tot ${HOME_MEDSLIK}/OUT/$DIR_output
+mv ${HOME_MEDSLIK}/OUT/*.fte ${HOME_MEDSLIK}/OUT/$DIR_output
+mv ${HOME_MEDSLIK}/OUT/*.cst ${HOME_MEDSLIK}/OUT/$DIR_output
+mv ${MEDSLIK}/spill_properties.nc ${HOME_MEDSLIK}/OUT/$DIR_output
 
-mkdir ../OUT/$DIR_output/MET
-mkdir ../OUT/$DIR_output/OCE
+mkdir ${HOME_MEDSLIK}/OUT/$DIR_output/MET
+mkdir ${HOME_MEDSLIK}/OUT/$DIR_output/OCE
 
-mv obs* ../OUT/$DIR_output
+mv ${MEDSLIK}/obs* ${HOME_MEDSLIK}/OUT/$DIR_output
 
-mv TEMP/MET/*.* ../OUT/$DIR_output/MET
-mv TEMP/OCE/*.* ../OUT/$DIR_output/OCE
+mv ${MEDSLIK}/TEMP/MET/*.* ${HOME_MEDSLIK}/OUT/$DIR_output/MET
+mv ${MEDSLIK}/TEMP/OCE/*.* ${HOME_MEDSLIK}/OUT/$DIR_output/OCE
 

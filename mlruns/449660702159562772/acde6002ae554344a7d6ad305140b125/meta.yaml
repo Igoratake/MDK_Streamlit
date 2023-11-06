@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/acde6002ae554344a7d6ad305140b125/artifacts
+end_time: 1695119032160
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: acde6002ae554344a7d6ad305140b125
+run_name: languid-loon-100
+run_uuid: acde6002ae554344a7d6ad305140b125
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695119031969
+status: 3
+tags: []
+user_id: mdk

@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/ea82cbe7bd7c4812aa57308e4df2c294/artifacts
+end_time: 1695135538246
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: ea82cbe7bd7c4812aa57308e4df2c294
+run_name: fun-penguin-103
+run_uuid: ea82cbe7bd7c4812aa57308e4df2c294
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695119867257
+status: 3
+tags: []
+user_id: mdk

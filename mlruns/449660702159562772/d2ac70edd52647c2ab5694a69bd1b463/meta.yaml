@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/d2ac70edd52647c2ab5694a69bd1b463/artifacts
+end_time: 1695639703912
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: d2ac70edd52647c2ab5694a69bd1b463
+run_name: handsome-fowl-675
+run_uuid: d2ac70edd52647c2ab5694a69bd1b463
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695639697893
+status: 3
+tags: []
+user_id: mdk

@@ -1,0 +1,37 @@
+01   01        Mode (1/0 for oil slick/trajectory simulation); Number of superimposed spills
+0    0         Indicates if simulation is to restart at the given hour
+15 07 2023     Date of Spill
+1200           Hour of Spill
+0000           Duration of Spill (hrs)
+41 0.000       Latitude of Spill (degrees & minutes)
+18 0.000       Longitude of Spill (degrees & minutes)
+out            Three-letter Prefix for Output Filenames
+0024           Length of Simulation (hrs)
+001            Interval for Printing Results to Output File
+00             Indicates that the spill positions will/will not (1/0) be corrected in accordance with the file 'medslik.crn'
+00020.00      Spill Rate (units/hr)
+tons           Units for Oil Volume (tons, bbls or cu.m)
+0             Slick Age
+0             0/1 if Satellite Data is used
+Sylvestre
+28.40          API of Oil
+0.885          Density of Oil
+0.928          Residual Density of Oil
+64.16          Residual Percent of Oil
+14.10          Viscosity of Oil
+38.00          Temperature at which Viscosity determined
+0.366          Vapour Pressure of Oil (bar)
+01             Indicates SST from Climatology (0), MFS water-current Forecasts (1) or User-defined (8)
+00.0           Sea Surface Temperature in case preceding index = 8
+00             Indicates if booms deployed (0 or 1)
+150.0            Spatial resolution (m) of the oil tracer grid
+2
+230715_U.nc 1
+230715_V.nc 1
+230715_T.nc 1
+230716_U.nc 1
+230716_V.nc 1
+230716_T.nc 1
+2
+erai230715.eri 1
+erai230716.eri 1

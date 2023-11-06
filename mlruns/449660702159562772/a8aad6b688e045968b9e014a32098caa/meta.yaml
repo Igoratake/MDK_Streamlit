@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/a8aad6b688e045968b9e014a32098caa/artifacts
+end_time: 1695651961551
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: a8aad6b688e045968b9e014a32098caa
+run_name: sneaky-hog-624
+run_uuid: a8aad6b688e045968b9e014a32098caa
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695651952428
+status: 3
+tags: []
+user_id: mdk

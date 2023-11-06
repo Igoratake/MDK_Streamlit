@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/8ac88a98133f4fde809f0a699384c453/artifacts
+end_time: 1695118949811
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: 8ac88a98133f4fde809f0a699384c453
+run_name: righteous-skunk-638
+run_uuid: 8ac88a98133f4fde809f0a699384c453
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695118892120
+status: 3
+tags: []
+user_id: mdk

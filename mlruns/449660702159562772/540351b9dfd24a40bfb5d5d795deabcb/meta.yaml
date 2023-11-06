@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/449660702159562772/540351b9dfd24a40bfb5d5d795deabcb/artifacts
+end_time: 1695634272866
+entry_point_name: ''
+experiment_id: '449660702159562772'
+lifecycle_stage: active
+run_id: 540351b9dfd24a40bfb5d5d795deabcb
+run_name: upbeat-hen-442
+run_uuid: 540351b9dfd24a40bfb5d5d795deabcb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1695634270522
+status: 3
+tags: []
+user_id: mdk

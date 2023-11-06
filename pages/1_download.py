@@ -85,6 +85,9 @@ st.set_page_config(page_title="Downloading Data", page_icon="⬇️")
 
 
 # Initialize the previous input values
+prev_down = st.session_state.get("Download values", 'global')
+st.session_state['down'] = prev_down
+
 prev_latitude = st.session_state.get("latitude (decimal degrees)", '')
 prev_longitude = st.session_state.get("longitude (decimal degrees)", '')
 prev_delta = st.session_state.get("Max and Min around Discharge (decimal degrees)", "0.5")
@@ -162,7 +165,7 @@ if latitude and longitude:
                                                       value=prev_simulation_duration)                                
                 
                 duration  = np.ceil(simulation_duration/24)
-                dtend = dt + datetime.timedelta(days=duration) 
+                dtend = dt + datetime.timedelta(days=duration +1) 
 
                 enddate = f'{dtend.year}-{str(dtend.month).zfill(2)}-{str(dtend.day).zfill(2)}'
                 enddate2 = enddate + 'T00:00:00Z'         
@@ -183,7 +186,7 @@ if latitude and longitude:
                 st.session_state['user'] = u
 
                 # Insert your Mercator User
-                p = st.text_input("Insert your Mercator password", on_change=collect_psd)
+                p = st.text_input("Insert your Mercator password", type='password',on_change=collect_psd)
 
                 st.session_state['psd'] = p
                 
