@@ -1,74 +1,45 @@
-import sys
+import argparse
+import pandas as pd
 
-path="oilbase.txt"
-data=open(path).readlines()
+def read_oilbase(value,path,option):
 
-#oil_list=""
-#for i in range(0,len(data)):
-# element=data[i].split('  ')
-# name=element[0]
-# oil_list=oil_list+name+"\n"
+   data = pd.read_csv(path,sep=';')
 
-#doc0=file("oil_list.txt",'w')
-#doc0.writelines(oil_list)
-#doc0.close()
+   if option=="name":
+      try: #collecting line with correspondent oil name         
+         oil = data[data.oil_name == value]
 
-option=sys.argv[1]
+      except: #if there is no exact match
+         # line below gets all names that start with the same letter as input
+         oil_withletter = data[data['oil_name'].str.startswith(value[0])].oil_name.values.tolist()
 
-if option=="NAME":
- oil_name=sys.argv[2]
-#oil_name="Aboozar"
- for i in range(0,len(data)):
-  element_=data[i].split('  ')
-  name=element_[0]
-  element=data[i].split(' ')
-  if name==oil_name:
-   n=len(element)-1
-   dens_oil=element[n][0:5]
-   api=element[n][5:10]
-   temp=element[n][10:15]
-   visc=element[n][18:23]
-   res_dens_oil=element[n][23:28]
-   res_perc_oil=element[n][28:33]
-   vap_press=element[n][33:38]
-   oil_file=name+"\n" 
-   oil_file=oil_file+api+"          API of Oil\n"
-   oil_file=oil_file+dens_oil+"          Density of Oil\n"
-   oil_file=oil_file+res_dens_oil+"          Residual Density of Oil\n"
-   oil_file=oil_file+res_perc_oil+"          Residual Percent of Oil\n"
-   oil_file=oil_file+visc+"          Viscosity of Oil\n"
-   oil_file=oil_file+temp+"          Temperature at which Viscosity determined\n"
-   oil_file=oil_file+vap_press+"          Vapour Pressure of Oil (bar)\n"
-   doc=open("oil_file.txt",'w')
-   doc.writelines(oil_file)
-   doc.close()
+         print('There is no oil with that name. Do you mean:')
+         print('\n'.join(oil_withletter))
+         
+         raise ValueError('No oil with that name in database. Try suggestions mentioned above.')
+   
+   else: #uses closest API value to return an oil
+      oil =  data.loc[(data.oil_api - float(value)).abs().idxmin()]
 
-if option=="API":
- api_number=sys.argv[2]
-#api_number="20"
- for i in range(0,223):
-  element=data[i].split(' ')
-  name=element[0]
-  n=len(element)-1
-  api=element[n][5:10]
-  api_int=str(round(float(api)))[0:2]
-  if api_int==str(round(float(api_number)))[0:2]:
-#   print api_number
-   dens_oil=element[n][0:5]
-   api=element[n][5:10]
-   temp=element[n][10:15]
-   visc=element[n][18:23]
-   res_dens_oil=element[n][23:28]
-   res_perc_oil=element[n][28:33]
-   vap_press=element[n][33:38]
-   oil_file=name+"\n" 
-   oil_file=oil_file+api+"          API of Oil\n"
-   oil_file=oil_file+dens_oil+"          Density of Oil\n"
-   oil_file=oil_file+res_dens_oil+"          Residual Density of Oil\n"
-   oil_file=oil_file+res_perc_oil+"          Residual Percent of Oil\n"
-   oil_file=oil_file+visc+"          Viscosity of Oil\n"
-   oil_file=oil_file+temp+"          Temperature at which Viscosity determined\n"
-   oil_file=oil_file+vap_press+"          Vapour Pressure of Oil (bar)\n"
-   doc=open("oil_file.txt",'w')
-   doc.writelines(oil_file)
-   doc.close()
+   #writing oil values to oil_file.txt that will be use in medslik-II simulation
+   with open ('oil_file.txt','w') as f:
+      f.write(f"{oil.oil_name}\n")
+      f.write(f"{oil.oil_api:.02f}          API of Oil\n")
+      f.write(f"{oil.oil_density:.03f}          Density of Oil\n")
+      f.write(f"{oil.oil_res_dens:.03f}          Residual Density of Oil\n")
+      f.write(f"{oil.oil_res_perc:.02f}          Residual Percent of Oil\n")
+      f.write(f"{oil.oil_visc:.02f}          Viscosity of Oil\n")
+      f.write(f"{oil.oil_temp:.02f}          Temperature at which Viscosity determined\n")
+      f.write(f"{oil.oil_vap_press:.03f}          Vapour Pressure of Oil (bar)")
+      
+      f.close()
+
+if __name__ == '__main__':
+
+   parser = argparse.ArgumentParser(description='Collect oil information from the oilbase')
+   parser.add_argument('value', help='Oil name or Oil API. Oil name must be exact value')
+   parser.add_argument('option', type=string, help='Either "name" or "api"')
+
+   path = 'MEDSLIK_II_2.02/RUN/oilbase.csv'
+
+   read_oilbase(value,path,option)
