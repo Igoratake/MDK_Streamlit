@@ -1,0 +1,15 @@
+artifact_uri: file:///scratch/work/testing/mlruns/322776426458525443/65dd580216dc4df6a98df202ab734e34/artifacts
+end_time: 1704985507317
+entry_point_name: ''
+experiment_id: '322776426458525443'
+lifecycle_stage: active
+run_id: 65dd580216dc4df6a98df202ab734e34
+run_name: wistful-cub-190
+run_uuid: 65dd580216dc4df6a98df202ab734e34
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1704985387429
+status: 3
+tags: []
+user_id: iatake

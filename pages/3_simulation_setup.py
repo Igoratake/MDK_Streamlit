@@ -141,7 +141,8 @@ if simname:
         st.session_state.spill_duration = int(spill_duration)
         st.session_state.spill_length = int(spill_lentgh)
         st.session_state.oil_api = oil_api
-        st.session_state.oil_volume = float(oil_volume)
+        if oil_volume:
+            st.session_state.oil_volume = float(oil_volume)
 
     if (spill_lentgh and spill_duration and spill_hour 
         and latitude and longitude and oil_volume):

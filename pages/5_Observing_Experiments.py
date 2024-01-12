@@ -24,7 +24,17 @@ import time
 import datetime
 import subprocess
 import threading
-from glob import glob 
+from glob import glob
+import base64 
+
+def center_image(image_path, caption=None):
+    # Create a container with custom CSS to center the image
+    st.markdown(
+        f'<div style="display: flex; justify-content: center;">'
+        f'<img src="{image_path}" alt="Image" style="width: auto; height: auto; max-width: 50%; max-height: 50%;" />'
+        f'</div>',
+        unsafe_allow_html=True
+    )
 
 #Page code
 
@@ -51,14 +61,25 @@ Try another one')
 
         st.dataframe(data=df)        
 
-        if st.button("Go to MLFlow"):
+        if st.button("Show Results"):
 
-            try:
-                subprocess.run(f'mlflow ui',shell=True,check=True)
-            except:
-                pass          
+            image_path = "/Users/iatake/Dropbox (CMCC)/Work/MEDSLIK-II and Pyslick/Medslik-II_Streamlit/MDK_Streamlit/example3.gif"
+            caption = ""
+
+            # Center the image on the Streamlit app
+            """### Test 1 Output Example"""
+            file_ = open(image_path, "rb")
+            contents = file_.read()
+            data_url = base64.b64encode(contents).decode("utf-8")
+            file_.close()
+
+            st.markdown(
+                f'<img src="data:image/gif;base64,{data_url}" alt="test1 example">',
+                unsafe_allow_html=True,
+)
             
-            webbrowser.open_new_tab(f'http://localhost:5000/#/experiments/{exp_id}')
+        
+
 
     
     
