@@ -7,6 +7,9 @@ import argparse
 import subprocess
 import time
 
+# Functions outside this script
+from medslik_utils import *
+
 def get_era5(xmin,xmax,ymin,ymax,start_date,end_date,output_path):
     server = cdsapi.Client()
 
@@ -15,13 +18,15 @@ def get_era5(xmin,xmax,ymin,ymax,start_date,end_date,output_path):
 
     days = (end_date-start_date).days
 
+    print(ymin,ymax,xmin,xmax)
+
     outputs = []
 
     for i in range(0,days):
   
         date = start_date + datetime.timedelta(days=i)
 
-        outputname = output_path + f'era5_winds10_{str(date.year)+str(date.month).zfill(2)+str(date.day).zfill(2)}.nc'
+        outputname = output_path + f'temp_{str(date.year)+str(date.month).zfill(2)+str(date.day).zfill(2)}.nc'
        
         server.retrieve(
         'reanalysis-era5-single-levels',
@@ -46,13 +51,12 @@ def get_era5(xmin,xmax,ymin,ymax,start_date,end_date,output_path):
           ],
           'area': [
               ymax, xmin, ymin,
-              xmax,
+              xmax
           ],
         },
         outputname)
         
         time.sleep(2)
-        subprocess.run(f'ncrename -O -d longitude,lon -d latitude,lat -v longitude,lon -v latitude,lat -v u10,U10M -v v10,V10M {outputname}',shell=True,check=True)
 
 
 if __name__ == '__main__':
@@ -60,19 +64,20 @@ if __name__ == '__main__':
     # Script to download daily ERA-5 files
 
     parser = argparse.ArgumentParser(description='Download wind fields for a specific area and time window.')
-    parser.add_argument('lat', type=float, help='Latitude value')
-    parser.add_argument('lon', type=float, help='Longitude value')
-    parser.add_argument('delta_latlon', type=float, help='Delta latitude and longitude value')
+    parser.add_argument('lat_min', type=float, help='Minimum Latitude value')
+    parser.add_argument('lon_min', type=float, help='Minimum Longitude value')
+    parser.add_argument('lat_max', type=float, help='Maximum Latitude value')
+    parser.add_argument('lon_max', type=float, help='Maximum Longitude value')
     parser.add_argument('date_min', type=str, help='Start date in yyyy-mm-dd format')
     parser.add_argument('date_max', type=str, help='End date in yyyy-mm-dd format')
     parser.add_argument('output_path', type=str, default='./', help='Output path (default: current directory)')
     args = parser.parse_args()
 
     #Set your area of interest
-    xmin = np.floor(float(args.lon - args.delta_latlon))
-    xmax = np.ceil(float(args.lon + args.delta_latlon))
-    ymin = np.floor(float(args.lat - args.delta_latlon))
-    ymax = np.ceil(float(args.lat + args.delta_latlon))
+    xmin = float(args.lon_min)
+    xmax = float(args.lon_max)
+    ymin = float(args.lat_min)
+    ymax = float(args.lat_max)
 
     # Set your period of interest
     start_date=args.date_min
@@ -85,7 +90,7 @@ if __name__ == '__main__':
     print('********************************************')
 
 
-    get_era5(xmin,xmax,ymin,ymax,start_date,end_date,args.output_path)
+    get_era5(args.lon_min,args.lon_max,args.lat_min,args.lat_max,start_date,end_date,args.output_path)
 
 #    os.system('cdo -b F64 mergetime ' + out_folder + file1 + ' ' + out_folder + file2 + ' ' + out_folder + 'output.nc')
 #

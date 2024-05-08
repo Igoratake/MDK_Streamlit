@@ -59,15 +59,9 @@ def plot_gridlines_on_map(nc_file):
     # Read the NetCDF data using xarray
     ds = xr.open_dataset(nc_file)
 
-    if 'med' in nc_file:
-        try:
-            ds = ds.rename({'lat':'latitude','lon':'longitude'})
-        except:
-            pass
-
     # Extract latitude, longitude, and grid values
-    lats = ds.latitude.values
-    lons = ds.longitude.values
+    lats = ds.lat.values
+    lons = ds.lon.values
     grid_values = ds.isel(time=0,depth=0).vo.values
 
     # Create a Streamlit map
@@ -108,7 +102,7 @@ def center_image(image_path, caption=None):
 st.title("Data available")
 
 # Use the glob module to get a list of files in the current directory
-file_list = glob("data/MERCATOR/*raw.nc")
+file_list = glob("data/MERCATOR/*mdk.nc")
 
 # Use st.sidebar.selectbox to create a selectbox in the sidebar
 selected_file = st.selectbox("Select a file", file_list)
@@ -123,18 +117,12 @@ if selected_file:
 
     ds = xr.open_dataset(selected_file)
 
-    if 'med' in selected_file:
-        try:
-            ds = ds.rename({'lat':'latitude','lon':'longitude'})
-        except:
-            pass
-
     col1,col2,col3,col4 = st.columns(4)
 
-    col1.metric('Minimum Latitude',f'{np.nanmin(ds.latitude)} Deg')
-    col2.metric('Maximum Latitude',f'{np.nanmax(ds.latitude)} Deg')
-    col3.metric('Minimum Longitude',f'{np.nanmin(ds.longitude)} Deg')
-    col4.metric('Maximum Longitude',f'{np.nanmax(ds.longitude)} Deg')
+    col1.metric('Minimum Latitude',f'{np.nanmin(ds.lat)} Deg')
+    col2.metric('Maximum Latitude',f'{np.nanmax(ds.lat)} Deg')
+    col3.metric('Minimum Longitude',f'{np.nanmin(ds.lon)} Deg')
+    col4.metric('Maximum Longitude',f'{np.nanmax(ds.lon)} Deg')
 
     plot_gridlines_on_map(selected_file)        
 
