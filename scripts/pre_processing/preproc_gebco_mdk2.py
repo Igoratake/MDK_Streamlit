@@ -10,25 +10,33 @@ def interp_gebco(gebco,grid):
 	grid = xr.open_dataset(grid)
 	gebco = xr.open_dataset(gebco)
 
+	try:
+		grid = grid.rename({'nav_lat':'lat','nav_lon':'lon'})
+	except:
+		pass
+
 	# interpolation on medslik grid
-	med = gebco.interp(lon=grid.nav_lon.values.tolist(),lat=grid.nav_lat.values.tolist())
-	med['elevation'] = med.elevation *-1	
+	med = gebco.interp(lon=grid.lon.values.tolist(),lat=grid.lat.values.tolist())
+	#converting from begative depths to positive
+	med['elevation'] = med.elevation *-1
+	#filling nan to -9999 as expected by medslik
+	med = med.fillna(9999)	
 
 	# Convert bathymetry to MDK-II
 	mdk_z=[]
 
 	llat,llon = len(med.lat),len(med.lon)
 	
-	for i in range(0,llat):
+	for i in reversed(range(0,llat)):
 		for j in range(0,llon):
 			rec = med.isel(lat=i,lon=j)
 			mdk_z.append(rec.elevation.values.max())
 
 	mdk_z = np.array(mdk_z)
 	land_mask = np.where(mdk_z <= 0)
-	mdk_z[land_mask]=-9999
+	mdk_z[land_mask]=9999
 
-	return grid.nav_lon.values, grid.nav_lat.values, mdk_z, llat, llon
+	return grid.lon.values, grid.lat.values, mdk_z, llat, llon
 
 ################################################################################
 # USER INPUTS
@@ -59,9 +67,9 @@ oce_filename = args.input
 mdk_x, mdk_y, mdk_z, llat, llon = interp_gebco(gebco_filename,oce_filename)
 
 # write .bath file
-BathFile=open(output_dir + "medf_.bath", "w")
+BathFile=open(output_dir + "dtm.bath", "w")
 BathFile.write("MEDSLIK-II compatible bathymetry file. Degraded resolution based on GEBCO 30''\n")
 BathFile.write("%-7.4f %-7.4f %-7.4f %-7.4f \n" % (np.min(mdk_x),np.max(mdk_x),np.min(mdk_y),np.max(mdk_y)))
-BathFile.write("%d %d \n" % (llat,llon))
+BathFile.write("%d %d \n" % (llon,llat))
 np.savetxt(BathFile,mdk_z,fmt="%04.0f")
 BathFile.close()

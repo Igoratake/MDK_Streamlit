@@ -1,26 +1,26 @@
 SIM_NAME=test1
-sim_length=0024   # choose the simulation length (in hours, 4 characters)
+sim_length=0028   # choose the simulation length (in hours, 4 characters)
 
 # insert oil slick data: time and date of observation
 
-day=15
-month=07
-year=23
-hour=12
-minutes=00
+day=21
+month=03
+year=24
+hour=HH
+minutes=mm
 
 
 # insert oil slick data: coordinate of the center of the slick
 
-lat_degree=41
-lat_minutes=0.000
-lon_degree=18
-lon_minutes=0.000
+lat_degree=39
+lat_minutes=35.833
+lon_degree=17
+lon_minutes=22.822
 
 # insert oil slick data: spill rate, spill duration and age
 
 duration=0000            # spill duration, in hours, 4 characters, if the spill is instantaneous type 0000
-spillrate=00004.00        # spill rate in tons/hours,  if the spill is instantaneous write the total tons spilled
+spillrate=00100.00        # spill rate in tons/hours,  if the spill is instantaneous write the total tons spilled
 age=0
 grid_size=150.0         # spatial resolution (m) of the oil tracer grid
 

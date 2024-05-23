@@ -6,8 +6,8 @@ sim_length=SIMLENGTH   # choose the simulation length (in hours, 4 characters)
 day=DD
 month=MM
 year=YY
-hour=HH
-minutes=mm
+hour=c_Hour
+minutes=c_minute
 
 
 # insert oil slick data: coordinate of the center of the slick
