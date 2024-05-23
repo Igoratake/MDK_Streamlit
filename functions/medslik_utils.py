@@ -372,10 +372,11 @@ def rename_netcdf_variables_mdk2(ds):
     variables_to_rename = {'depthu': 'depth', 'depthv': 'depth', 'deptht': 'depth',
                             'nav_lat':'lat','nav_lon':'lon', 'y':'lat','x':'lon',
                             'latitude':'lat','longitude':'lon',
-                            'votemper':'thetao',
-                            'vozocrtx':'uo',
-                            'vomecrty':'vo',
-                            'u10':'U10M','v10':'V10M',
+                            'votemper':'thetao','mesh2d_tem1':'thetao',
+                            'vozocrtx':'uo','mesh2d_ucx':'uo',
+                            'vomecrty':'vo','mesh2d_ucy':'vo',
+                            'u10':'U10M','mesh2d_windx':'U10M',
+                            'v10':'V10M','mesh2d_windy':'V10M',
                             'time_counter':'time'}
     
     # Rename variables only if they exist in the dataset

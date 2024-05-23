@@ -198,7 +198,7 @@ if simname:
                 if st.button("Start File Transfer"):
 
                     subprocess.run([f'cp {selected_file} cases/{simname}/oce_files/'],shell=True)
-                    subprocess.run([f'cp data/ERA5/*{selected_file.split("_")[2]}* cases/{simname}/met_files/'],shell=True)
+                    subprocess.run([f'cp data/ERA5/*{selected_file.split("_")[-2]}* cases/{simname}/met_files/'],shell=True)
                     
                     # Simulation dates
                     dt_sim = sim_date
@@ -237,6 +237,11 @@ if simname:
                     #Interpolating the values in time, transforming it from daily to hourly values
                     concat = concat.resample(time="1H").interpolate("linear")
 
+                    if 'relocatable' in glob(f'cases/{simname}/oce_files/*mdk.nc')[0]:
+                        concat = concat.sel(time=slice(date_list[0],date_list[-1]),
+                                            lat=slice(latitude-0.5,latitude+0.5),
+                                            lon=slice(longitude-0.5,longitude+0.5))
+
                     #Call write mrc function located in medslik.utils file
                     write_mrc(concat,simname=simname)
 
@@ -247,7 +252,12 @@ if simname:
                     concat = concat.resample(time="1H").interpolate("linear")
 
                     #iterating at each hour to generate the .eri files
-                    for date in date_list:            
+                    for date in date_list:
+
+                        if 'relocatable' in glob(f'cases/{simname}/oce_files/*mdk.nc')[0]:
+                            concat = concat.sel(time=slice(date_list[0],date_list[-1]),
+                                                lat=slice(latitude-0.5,latitude+0.5),
+                                                lon=slice(longitude-0.5,longitude+0.5))            
                         
                         #Call write eri function located in medslik.utils file
                         write_eri(concat,date,simname=simname)
@@ -258,10 +268,10 @@ if simname:
                     grid_string = glob(f'{simdir}{simname}/oce_files/*.nc')[0] 
 
                     # Bathymetry for gebco 2023
-                    run_process_gebco('data/gebco/GEBCO_2023.nc', 
+                    run_process_gebco('/Users/iatake/Dropbox (CMCC)/Work/MEDSLIK-II and Pyslick/Medslik-II/data/gebco/GEBCO_2023.nc', 
                                     grid_string, f'{simdir}{simname}/bnc_files/')
-                    # gshhs in intermediate resolution
-                    run_process_gshhs('data/gshhs/gshhg-shp-2.3.7/GSHHS_shp/i/GSHHS_i_L1.shp', 
+                    # gshhs in full resolution
+                    run_process_gshhs('/Users/iatake/Dropbox (CMCC)/Work/MEDSLIK-II and Pyslick/Medslik-II/data/gshhs/GSHHS_shp/f/GSHHS_f_L1.shp', 
                                     grid_string, f'{simdir}{simname}/bnc_files/')
 
                     ##### CONFIG FILES ##### 
